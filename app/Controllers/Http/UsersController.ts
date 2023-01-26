@@ -1,3 +1,6 @@
+import CreateUser from 'App/Validators/CreateUserValidator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+
 export default class UsersController {
   /**
    * @swagger
@@ -10,7 +13,9 @@ export default class UsersController {
    *       200:
    *         description: ok
    */
-  public async hello() {
-    return 'swagger test'
+  public async createUser({ request, response }: HttpContextContract) {
+    await CreateUser.postLoginValidator(request)
+
+    return response.ok('ok')
   }
 }
